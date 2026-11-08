@@ -1,0 +1,20 @@
+@startuml sequence-analysis
+actor "Разработчик" as Dev
+participant "CLI/API" as CLI
+participant "Code Analysis" as ANA
+participant "Graph Engine" as GRAPH
+participant "Conformance" as CHECK
+participant "Impact Analyzer" as CIA
+participant "Store" as REPO
+
+Dev -> CLI : run analyze --since <base>
+CLI -> ANA : построить/обновить граф
+ANA -> GRAPH : добавить вершины и рёбра
+GRAPH -> REPO : сохранить граф
+CLI -> CHECK : проверить ограничения
+CHECK --> CLI : список отклонений
+CLI -> CIA : diff от <base>
+CIA -> GRAPH : транзитивное замыкание
+CIA --> CLI : затронутые элементы
+CLI --> Dev : отчёт
+@enduml

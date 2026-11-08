@@ -1,0 +1,41 @@
+@startuml class
+class Graph {
+  +addVertex(v)
+  +addEdge(u, v, w)
+  +reverseReach(start)
+}
+class Vertex {
+  +id
+  +kind
+  +layer
+}
+class Edge {
+  +from
+  +to
+  +type
+  +weight
+}
+class Component {
+  +name
+  +layer
+}
+class Requirement {
+  +id
+  +priority
+}
+class ArchitectureRule {
+  +allowed(from, to)
+}
+class ImpactReport {
+  +changed[]
+  +impacted[]
+  +deviations[]
+}
+
+Graph "1" *-- "N" Vertex
+Graph "1" *-- "N" Edge
+Vertex --> Component
+Vertex --> Requirement
+ArchitectureRule ..> Edge : проверяет
+ImpactReport --> Vertex
+@enduml

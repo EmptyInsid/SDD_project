@@ -1,0 +1,35 @@
+@startuml component
+package "ACIA" {
+  [CLI / API] as CLI
+  [Specification Service] as SPEC
+  [Code Analysis Service] as ANA
+  [Dependency Graph Engine] as GRAPH
+  [Conformance Checker] as CHECK
+  [Impact Analyzer] as CIA
+  [Documentation Generator] as DOC
+  [LLM Adapter] as LLM
+  [Repository Store] as REPO
+}
+
+database "Git repo" as GIT
+database "PostgreSQL" as DB
+
+GIT --> ANA
+SPEC --> CHECK
+ANA --> GRAPH
+GRAPH --> CHECK
+GRAPH --> CIA
+CHECK --> DOC
+CIA --> DOC
+CHECK --> LLM
+CIA --> LLM
+LLM ..> DOC
+SPEC --> REPO
+ANA --> REPO
+CHECK --> REPO
+CIA --> REPO
+REPO --> DB
+CLI --> SPEC
+CLI --> CHECK
+CLI --> CIA
+@enduml

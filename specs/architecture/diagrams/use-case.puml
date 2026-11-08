@@ -1,0 +1,28 @@
+@startuml use-case
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Архитектор" as Architect
+actor "Разработчик" as Developer
+actor "QA-инженер" as QA
+actor "CI/CD" as CI
+
+rectangle "ACIA" {
+  usecase "UC-01 Импортировать репозиторий" as UC1
+  usecase "UC-02 Задать архитектурную спецификацию" as UC2
+  usecase "UC-03 Проверить соответствие архитектуре" as UC3
+  usecase "UC-04 Оценить влияние изменения" as UC4
+  usecase "UC-05 Сгенерировать документацию" as UC5
+  usecase "UC-06 Получить AI-объяснение" as UC6
+}
+
+Architect --> UC2
+Architect --> UC3
+Architect --> UC5
+Developer --> UC1
+Developer --> UC4
+Developer --> UC6
+QA --> UC3
+CI --> UC3
+CI --> UC4
+@enduml
